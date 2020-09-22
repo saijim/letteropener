@@ -1,4 +1,7 @@
 import App from "./App.svelte";
+import "typeface-open-sans";
+import "typeface-lato";
+import "typeface-raleway";
 
 const app = new App({
   target: document.body,

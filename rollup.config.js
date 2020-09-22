@@ -1,11 +1,12 @@
 import svelte from "rollup-plugin-svelte";
-import resolve from "@rollup/plugin-node-resolve";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
-
+import postcss from "rollup-plugin-postcss";
+import copy from "rollup-plugin-copy";
 const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
@@ -58,14 +59,23 @@ export default {
     // some cases you'll need additional configuration -
     // consult the documentation for details:
     // https://github.com/rollup/plugins/tree/master/packages/commonjs
-    resolve({
+    nodeResolve({
       browser: true,
       dedupe: ["svelte"],
+    }),
+    postcss({
+      plugins: [],
     }),
     commonjs(),
     typescript({
       sourceMap: !production,
       inlineSources: !production,
+    }),
+    copy({
+      targets: [
+        { src: "node_modules/typeface-*/**/*.woff2", dest: "public/files/" },
+        { src: "node_modules/typeface-*/**/*.woff", dest: "public/files/" },
+      ],
     }),
 
     // In dev mode, call `npm run start` once

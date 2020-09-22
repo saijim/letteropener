@@ -4,6 +4,7 @@
   import InputNumber from "./components/InputNumber.svelte";
 
   const MAXCHARS = 10000;
+  const fonts = ["Open Sans", "Lato", "Raleway"];
 
   const getRandomChar = (num: number): string => {
     let result = "";
@@ -22,8 +23,10 @@
     return result;
   };
 
+  let fontFamily = fonts[0];
   let length = 80;
   let fontSize = 16;
+  let fontWeight = 400;
   let lineHeight = 20;
   let width = 300;
   let height = 200;
@@ -63,16 +66,34 @@
 
 <main>
   <div class="config">
+    <select name="fontFamily" id="fontFamily" bind:value={fontFamily}>
+      {#each fonts as font}
+        <option value={font}>{font}</option>
+      {/each}
+    </select>
+
     <InputNumber
       bind:value={length}
       name="length"
       min={1}
       max={MAXCHARS}
       step={1} />
+
     <InputNumber bind:value={fontSize} name="fontSize" />
+
+    <InputNumber
+      bind:value={fontWeight}
+      min={100}
+      max={900}
+      step={100}
+      name="fontWeight" />
+
     <InputNumber bind:value={lineHeight} name="lineHeight" />
+
     <InputNumber bind:value={width} name="width" />
+
     <InputNumber bind:value={height} name="height" />
+
     <InputNumber bind:value={padding} name="padding" />
 
     <div><button on:click={generateChars}>Randomize chars</button></div>
@@ -80,7 +101,13 @@
 
   <div
     class="output"
-    style="width: {width}px; height: {height}px; font-size: {fontSize}px; line-height: {lineHeight}px; padding: {padding}px">
+    style="width: {width}px;
+      height: {height}px;
+      font-size: {fontSize}px; 
+      line-height: {lineHeight}px;
+      padding: {padding}px;
+      font-weight: {fontWeight};
+    font-family: '{fontFamily}', sans-serif;">
     {chars.slice(0, Math.min(length, MAXCHARS))}
   </div>
 </main>
