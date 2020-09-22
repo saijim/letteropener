@@ -1,10 +1,11 @@
 <script lang="ts">
   import english from "./data/english";
   import rouletteWheelSelection from "roulette-wheel-selection";
+  import InputNumber from "./components/InputNumber.svelte";
 
   const MAXCHARS = 10000;
 
-  const getRandomChar = (num) => {
+  const getRandomChar = (num: number): string => {
     let result = "";
     for (let i = 0; i < num; i++) {
       if (Math.random() < 0.21) {
@@ -62,43 +63,17 @@
 
 <main>
   <div class="config">
-    <div>
-      <label for="length">Length</label>
-      <input
-        id="length"
-        type="number"
-        bind:value={length}
-        step="1"
-        min="1"
-        max={MAXCHARS} />
-    </div>
-
-    <div>
-      <label for="fontSize">fontSize</label>
-      <input id="fontSize" type="number" bind:value={fontSize} />
-    </div>
-
-    <div>
-      <label for="lineHeight">lineHeight</label>
-      <input id="lineHeight" type="number" bind:value={lineHeight} />
-    </div>
-
-    <div />
-
-    <div>
-      <label for="width">width</label>
-      <input id="width" type="number" bind:value={width} min="1" step="1" />
-    </div>
-
-    <div>
-      <label for="height">height</label>
-      <input id="height" type="number" bind:value={height} min="1" step="1" />
-    </div>
-
-    <div>
-      <label for="padding">padding</label>
-      <input id="padding" type="number" bind:value={padding} min="0" step="1" />
-    </div>
+    <InputNumber
+      bind:value={length}
+      name="length"
+      min={1}
+      max={MAXCHARS}
+      step={1} />
+    <InputNumber bind:value={fontSize} name="fontSize" />
+    <InputNumber bind:value={lineHeight} name="lineHeight" />
+    <InputNumber bind:value={width} name="width" />
+    <InputNumber bind:value={height} name="height" />
+    <InputNumber bind:value={padding} name="padding" />
 
     <div><button on:click={generateChars}>Randomize chars</button></div>
   </div>

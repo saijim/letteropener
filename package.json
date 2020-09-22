@@ -1,20 +1,23 @@
 {
-  "name": "svelte-app",
+  "name": "letteropener",
   "version": "1.0.0",
   "license": "0BSD",
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "start": "sirv public",
-    "validate": "svelte-check",
     "deploy": "rsync -avh --delete public/ root@q314.de:/var/www/letteropener.q314.de/",
-    "release": "yarn build && yarn deploy"
+    "dev": "rollup -c -w",
+    "release": "yarn build && yarn deploy",
+    "start": "sirv public",
+    "validate": "svelte-check"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
     "@rollup/plugin-typescript": "^6.0.0",
     "@tsconfig/svelte": "^1.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.9.0",
+    "eslint-plugin-svelte3": "^2.7.3",
     "rollup": "^2.3.4",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-svelte": "^6.0.0",
