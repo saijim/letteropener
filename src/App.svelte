@@ -1,7 +1,6 @@
 <script lang="ts">
   import english from "./data/english";
   import rouletteWheelSelection from "roulette-wheel-selection";
-  import { beforeUpdate } from "svelte";
 
   const MAXCHARS = 10000;
 
@@ -27,6 +26,7 @@
   let lineHeight = 20;
   let width = 300;
   let height = 200;
+  let padding = 10;
 
   let chars = getRandomChar(MAXCHARS);
   const generateChars = () => {
@@ -41,13 +41,13 @@
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    max-width: 1000px;
   }
 
   .config {
     flex: 0 0 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    max-width: 1000px;
     margin: 0 auto 60px auto;
     gap: 20px;
   }
@@ -55,7 +55,7 @@
   .output {
     display: inline-flex;
     border: 2px solid red;
-    overflow: auto;
+    overflow: visible;
     margin: 0 auto;
   }
 </style>
@@ -68,7 +68,7 @@
         id="length"
         type="number"
         bind:value={length}
-        step="10"
+        step="1"
         min="1"
         max={MAXCHARS} />
     </div>
@@ -87,13 +87,17 @@
 
     <div>
       <label for="width">width</label>
-
-      <input id="width" type="number" bind:value={width} step="10" />
+      <input id="width" type="number" bind:value={width} min="1" step="1" />
     </div>
 
     <div>
       <label for="height">height</label>
-      <input id="height" type="number" bind:value={height} step="10" />
+      <input id="height" type="number" bind:value={height} min="1" step="1" />
+    </div>
+
+    <div>
+      <label for="padding">padding</label>
+      <input id="padding" type="number" bind:value={padding} min="0" step="1" />
     </div>
 
     <div><button on:click={generateChars}>Randomize chars</button></div>
@@ -101,7 +105,7 @@
 
   <div
     class="output"
-    style="width: {width}px; height: {height}px; font-size: {fontSize}px; line-height: {lineHeight}px">
+    style="width: {width}px; height: {height}px; font-size: {fontSize}px; line-height: {lineHeight}px; padding: {padding}px">
     {chars.slice(0, Math.min(length, MAXCHARS))}
   </div>
 </main>
