@@ -1,6 +1,7 @@
 <script lang="ts">
   import english from "./data/english";
   import rouletteWheelSelection from "roulette-wheel-selection";
+  import { beforeUpdate } from "svelte";
 
   const MAXCHARS = 10000;
 
@@ -27,7 +28,10 @@
   let width = 300;
   let height = 200;
 
-  const chars = getRandomChar(MAXCHARS);
+  let chars = getRandomChar(MAXCHARS);
+  const generateChars = () => {
+    chars = getRandomChar(MAXCHARS);
+  };
 </script>
 
 <style>
@@ -43,12 +47,16 @@
     flex: 0 0 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    max-width: 1000px;
+    margin: 0 auto 60px auto;
+    gap: 20px;
   }
 
   .output {
     display: inline-flex;
     border: 2px solid red;
     overflow: auto;
+    margin: 0 auto;
   }
 </style>
 
@@ -60,6 +68,7 @@
         id="length"
         type="number"
         bind:value={length}
+        step="10"
         min="1"
         max={MAXCHARS} />
     </div>
@@ -68,19 +77,26 @@
       <label for="fontSize">fontSize</label>
       <input id="fontSize" type="number" bind:value={fontSize} />
     </div>
+
     <div>
       <label for="lineHeight">lineHeight</label>
       <input id="lineHeight" type="number" bind:value={lineHeight} />
     </div>
+
+    <div />
+
     <div>
       <label for="width">width</label>
-      <input id="width" type="number" bind:value={width} />
+
+      <input id="width" type="number" bind:value={width} step="10" />
     </div>
 
     <div>
       <label for="height">height</label>
-      <input id="height" type="number" bind:value={height} />
+      <input id="height" type="number" bind:value={height} step="10" />
     </div>
+
+    <div><button on:click={generateChars}>Randomize chars</button></div>
   </div>
 
   <div
