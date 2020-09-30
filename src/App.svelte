@@ -41,36 +41,55 @@
 <style>
   main {
     text-align: left;
-    padding: 40px;
+    padding: 25px;
     margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 1000px;
+    max-width: 1280px;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-auto-rows: min-content;
+    align-items: center;
+    gap: 50px;
+    min-height: 100vh;
+  }
+
+  header {
+    grid-column: 1 / 3;
   }
 
   .config {
-    flex: 0 0 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    margin: 0 auto 60px auto;
-    gap: 20px;
+    grid-template-columns: 70px 70px;
+    margin: 0 0 0 25px;
+    gap: 40px 20px;
+    background: rgba(16, 212, 255, 0.11);
+    padding: 10px 35px;
   }
 
   .output {
     display: inline-flex;
-    border: 2px solid red;
+    border: 2px solid #000;
+    outline: 2px solid #10d4ff;
     overflow: visible;
     margin: 0 auto;
+  }
+
+  select {
+    grid-column: span 2;
+  }
+
+  h1 {
+    grid-column: span 2;
+    font-size: 52px;
+    font-weight: 700;
+    margin: 0;
   }
 </style>
 
 <main>
+  <header><img src="logo.svg" alt="" /></header>
+
   <div class="config">
-    <select name="fontFamily" id="fontFamily" bind:value={fontFamily}>
-      {#each fonts as font}
-        <option value={font}>{font}</option>
-      {/each}
-    </select>
+    <h1>Fancy&nbsp;Character Count&nbsp;Tool&nbsp;-&nbsp;FCCT</h1>
 
     <InputNumber
       bind:value={length}
@@ -79,7 +98,15 @@
       max={MAXCHARS}
       step={1} />
 
-    <InputNumber bind:value={fontSize} name="fontSize" />
+    <InputNumber bind:value={height} name="height" max={999} />
+
+    <select name="fontFamily" id="fontFamily" bind:value={fontFamily}>
+      {#each fonts as font}
+        <option value={font}>{font}</option>
+      {/each}
+    </select>
+
+    <InputNumber bind:value={fontSize} name="fontSize" max={999} />
 
     <InputNumber
       bind:value={fontWeight}
@@ -88,13 +115,11 @@
       step={100}
       name="fontWeight" />
 
-    <InputNumber bind:value={lineHeight} name="lineHeight" />
+    <InputNumber bind:value={lineHeight} name="lineHeight" max={999} />
 
-    <InputNumber bind:value={width} name="width" />
+    <InputNumber bind:value={width} name="width" max={999} />
 
-    <InputNumber bind:value={height} name="height" />
-
-    <InputNumber bind:value={padding} name="padding" />
+    <InputNumber bind:value={padding} name="padding" max={999} />
 
     <div><button on:click={generateChars}>Randomize chars</button></div>
   </div>

@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rollup -c",
     "deploy": "rsync -avh --delete public/ root@q314.de:/var/www/letteropener.q314.de/",
-    "dev": "rollup -c -w",
+    "dev": "rollup -c -w --host 0.0.0.0",
     "release": "yarn build && yarn deploy",
     "start": "sirv public",
     "validate": "svelte-check"
