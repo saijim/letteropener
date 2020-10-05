@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rollup -c",
     "deploy": "rsync -avh --delete public/ root@q314.de:/var/www/letteropener.q314.de/",
-    "dev": "rollup -c -w --host 0.0.0.0",
+    "dev": "HOST=0.0.0.0 rollup -c -w",
     "release": "yarn build && yarn deploy",
     "start": "sirv public",
     "validate": "svelte-check"
@@ -35,7 +35,11 @@
     "roulette-wheel-selection": "^1.0.3",
     "sirv-cli": "^1.0.0",
     "typeface-lato": "^0.0.75",
+    "typeface-montserrat": "^0.0.75",
+    "typeface-noto-sans": "^0.0.72",
     "typeface-open-sans": "^0.0.75",
-    "typeface-raleway": "^0.0.75"
+    "typeface-raleway": "^0.0.75",
+    "typeface-roboto": "^0.0.75",
+    "typeface-roboto-condensed": "^0.0.75"
   }
 }

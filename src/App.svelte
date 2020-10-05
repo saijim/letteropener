@@ -1,41 +1,31 @@
 <script lang="ts">
-  import english from "./data/english";
-  import rouletteWheelSelection from "roulette-wheel-selection";
   import InputNumber from "./components/InputNumber.svelte";
+  import getRandomChar from "./util/getRandomChar";
 
   const MAXCHARS = 10000;
-  const fonts = ["Open Sans", "Lato", "Raleway"];
-
-  const getRandomChar = (num: number): string => {
-    let result = "";
-    for (let i = 0; i < num; i++) {
-      if (Math.random() < 0.21) {
-        result += " ";
-      } else {
-        let myChar = rouletteWheelSelection(english, "weight");
-        if (Math.random() > 0.03) {
-          result += myChar.name.toLowerCase();
-        } else {
-          result += myChar.name;
-        }
-      }
-    }
-    return result;
-  };
-
-  let fontFamily = fonts[0];
-  let length = 80;
-  let fontSize = 16;
-  let fontWeight = 400;
-  let lineHeight = 20;
-  let width = 300;
-  let height = 200;
-  let padding = 10;
+  const fonts = [
+    "Open Sans",
+    "Lato",
+    "Raleway",
+    "Noto Sans",
+    "Montserrat",
+    "Roboto Condensed",
+  ];
 
   let chars = getRandomChar(MAXCHARS);
   const generateChars = () => {
     chars = getRandomChar(MAXCHARS);
   };
+
+  /* App State */
+  let fontFamily = fonts[0],
+    length = 80,
+    fontSize = 16,
+    fontWeight = 400,
+    lineHeight = 20,
+    width = 300,
+    height = 200,
+    padding = 10;
 </script>
 
 <style>
