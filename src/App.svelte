@@ -61,6 +61,7 @@
     outline: 2px solid #10d4ff;
     overflow: visible;
     margin: 0 auto;
+    background-color: #fff;
   }
 
   select {
