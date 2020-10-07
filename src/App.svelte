@@ -1,5 +1,6 @@
 <script lang="ts">
   import InputNumber from "./components/InputNumber.svelte";
+  import Switch from "./components/Switch.svelte";
   import getRandomChar from "./util/getRandomChar";
 
   const MAXCHARS = 10000;
@@ -27,7 +28,8 @@
     width = 300,
     height = 200,
     padding = 10,
-    letterSpacing = 0;
+    letterSpacing = 0,
+    textTransform = "none";
 </script>
 
 <style>
@@ -122,6 +124,10 @@
 
     <InputNumber bind:value={letterSpacing} name="spacing" max={999} />
 
+    <Switch
+      bind:active={textTransform}
+      options={[{ value: 'none', label: 'Aa' }, { value: 'uppercase', label: 'AA' }]} />
+
     <div><button on:click={generateChars}>Randomize chars</button></div>
   </div>
 
@@ -152,6 +158,7 @@
       font-family: '{fontFamily}', sans-serif;
       font-style: {fontStyle};
       letter-spacing: {letterSpacing / 100}em;
+      text-transform: {textTransform};
     ">
       {chars.slice(0, Math.min(charCount, MAXCHARS))}
     </div>
