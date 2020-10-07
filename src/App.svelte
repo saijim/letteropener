@@ -19,6 +19,7 @@
 
   /* App State */
   let fontFamily = fonts[0],
+    fontStyle = "regular",
     length = 80,
     fontSize = 16,
     fontWeight = 400,
@@ -82,6 +83,17 @@
   <div class="config">
     <h1>Fancy&nbsp;Character Count&nbsp;Tool&nbsp;-&nbsp;FCCT</h1>
 
+    <select name="fontFamily" id="fontFamily" bind:value={fontFamily}>
+      {#each fonts as font}
+        <option value={font}>{font}</option>
+      {/each}
+    </select>
+
+    <select name="fontType" id="fontType" bind:value={fontStyle}>
+      <option value="normal">Normal</option>
+      <option value="italic">Italic</option>
+    </select>
+
     <InputNumber
       bind:value={length}
       name="length"
@@ -90,12 +102,6 @@
       step={1} />
 
     <InputNumber bind:value={height} name="height" max={999} />
-
-    <select name="fontFamily" id="fontFamily" bind:value={fontFamily}>
-      {#each fonts as font}
-        <option value={font}>{font}</option>
-      {/each}
-    </select>
 
     <InputNumber bind:value={fontSize} name="fontSize" max={999} />
 
@@ -123,7 +129,9 @@
       line-height: {lineHeight}px;
       padding: {padding}px;
       font-weight: {fontWeight};
-    font-family: '{fontFamily}', sans-serif;">
+      font-family: '{fontFamily}', sans-serif;
+      font-style: {fontStyle};
+    ">
     {chars.slice(0, Math.min(length, MAXCHARS))}
   </div>
 </main>

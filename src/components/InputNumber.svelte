@@ -10,16 +10,27 @@
   label {
     display: flex;
     flex-direction: column;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    text-transform: uppercase;
   }
 
   input {
     width: 100%;
-    padding: 0;
+    padding: 8px 0;
     margin: 0;
     border: 0;
     outline: 0;
     border-bottom: 2px solid #000;
     background-color: transparent;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
 </style>
 
