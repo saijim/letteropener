@@ -15,6 +15,8 @@
     font-size: 12px;
     line-height: 15px;
     text-transform: uppercase;
+    color: #888888;
+    white-space: nowrap;
   }
 
   input {
@@ -31,6 +33,7 @@
     line-height: 17px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+    color: #000;
   }
 </style>
 
