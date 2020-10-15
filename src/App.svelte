@@ -29,7 +29,8 @@
     height = 200,
     padding = 10,
     letterSpacing = 0,
-    textTransform = "none";
+    textTransform = "none",
+    simulateMultiple = false;
 </script>
 
 <style>
@@ -73,6 +74,10 @@
     gap: 50px;
   }
 
+  .output-wrapper {
+    position: relative;
+  }
+
   .output {
     display: inline-flex;
     border: 2px solid #000;
@@ -80,6 +85,17 @@
     overflow: visible;
     margin: 0 auto;
     background-color: #fff;
+  }
+
+  .hinted {
+    opacity: 0.2;
+  }
+
+  .output--absolute {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.1;
   }
 
   select {
@@ -128,6 +144,11 @@
       bind:active={textTransform}
       options={[{ value: 'none', label: 'Aa' }, { value: 'uppercase', label: 'AA' }]} />
 
+    <label>
+      simulate 10 outputs
+      <input type="checkbox" bind:checked={simulateMultiple} />
+    </label>
+
     <div><button on:click={generateChars}>Randomize chars</button></div>
   </div>
 
@@ -147,9 +168,11 @@
       <InputNumber bind:value={padding} name="padding" max={999} />
     </div>
 
-    <div
-      class="output"
-      style="width: {width}px;
+    <div class="output-wrapper">
+      <div
+        class="output"
+        class:hinted={simulateMultiple}
+        style="width: {width}px;
       height: {height}px;
       font-size: {fontSize}px; 
       line-height: {lineHeight}px;
@@ -160,7 +183,28 @@
       letter-spacing: {letterSpacing / 100}em;
       text-transform: {textTransform};
     ">
-      {chars.slice(0, Math.min(charCount, MAXCHARS))}
+        {chars.slice(0, Math.min(charCount, MAXCHARS))}
+      </div>
+
+      {#if simulateMultiple}
+        {#each Array(10) as item}
+          <div
+            class="output output--absolute"
+            style="width: {width}px;
+              height: {height}px;
+              font-size: {fontSize}px; 
+              line-height: {lineHeight}px;
+              padding: {padding}px;
+              font-weight: {fontWeight};
+              font-family: '{fontFamily}', sans-serif;
+              font-style: {fontStyle};
+              letter-spacing: {letterSpacing / 100}em;
+              text-transform: {textTransform};
+          ">
+            {getRandomChar(MAXCHARS).slice(0, Math.min(charCount, MAXCHARS))}
+          </div>
+        {/each}
+      {/if}
     </div>
   </div>
 </main>
