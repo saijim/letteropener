@@ -1,5 +1,6 @@
 <script lang="ts">
   import InputNumber from "./components/InputNumber.svelte";
+  import Output from "./components/Output.svelte";
   import Switch from "./components/Switch.svelte";
   import getRandomChar from "./util/getRandomChar";
 
@@ -31,6 +32,18 @@
     letterSpacing = 0,
     textTransform = "none",
     simulateMultiple = false;
+
+  $: outputStyles = `
+    width: ${width}px;
+    height: ${height}px;
+    font-size: ${fontSize}px; 
+    line-height: ${lineHeight};
+    padding: ${padding}px;
+    font-weight: ${fontWeight};
+    font-family: '${fontFamily}', sans-serif;
+    font-style: ${fontStyle};
+    letter-spacing: ${letterSpacing / 100}em;
+    text-transform: ${textTransform};`;
 </script>
 
 <style>
@@ -76,26 +89,6 @@
 
   .output-wrapper {
     position: relative;
-  }
-
-  .output {
-    display: inline-flex;
-    border: 2px solid #000;
-    outline: 2px solid #10d4ff;
-    overflow: visible;
-    margin: 0 auto;
-    background-color: #fff;
-  }
-
-  .hinted {
-    opacity: 0.2;
-  }
-
-  .output--absolute {
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0.1;
   }
 
   select {
@@ -174,40 +167,15 @@
     </div>
 
     <div class="output-wrapper">
-      <div
-        class="output"
-        class:hinted={simulateMultiple}
-        style="width: {width}px;
-                height: {height}px;
-                font-size: {fontSize}px; 
-                line-height: {lineHeight};
-                padding: {padding}px;
-                font-weight: {fontWeight};
-                font-family: '{fontFamily}', sans-serif;
-                font-style: {fontStyle};
-                letter-spacing: {letterSpacing / 100}em;
-                text-transform: {textTransform};
-      ">
+      <Output styles={outputStyles} hinted={simulateMultiple}>
         {chars.slice(0, Math.min(charCount, MAXCHARS))}
-      </div>
+      </Output>
 
       {#if simulateMultiple}
         {#each Array(10) as item}
-          <div
-            class="output output--absolute"
-            style="width: {width}px;
-              height: {height}px;
-              font-size: {fontSize}px; 
-              line-height: {lineHeight};
-              padding: {padding}px;
-              font-weight: {fontWeight};
-              font-family: '{fontFamily}', sans-serif;
-              font-style: {fontStyle};
-              letter-spacing: {letterSpacing / 100}em;
-              text-transform: {textTransform};
-          ">
+          <Output styles={outputStyles} absolute={simulateMultiple} hinted>
             {getRandomChar(MAXCHARS).slice(0, Math.min(charCount, MAXCHARS))}
-          </div>
+          </Output>
         {/each}
       {/if}
     </div>
