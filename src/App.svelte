@@ -24,7 +24,7 @@
     charCount = 80,
     fontSize = 16,
     fontWeight = 400,
-    lineHeight = 20,
+    lineHeight = 1.25,
     width = 300,
     height = 200,
     padding = 10,
@@ -136,7 +136,12 @@
       step={100}
       name="font weight" />
 
-    <InputNumber bind:value={lineHeight} name="line height" max={999} />
+    <InputNumber
+      bind:value={lineHeight}
+      name="line height"
+      min={0}
+      max={10}
+      step={0.025} />
 
     <InputNumber bind:value={letterSpacing} name="spacing" max={999} />
 
@@ -173,16 +178,16 @@
         class="output"
         class:hinted={simulateMultiple}
         style="width: {width}px;
-      height: {height}px;
-      font-size: {fontSize}px; 
-      line-height: {lineHeight}px;
-      padding: {padding}px;
-      font-weight: {fontWeight};
-      font-family: '{fontFamily}', sans-serif;
-      font-style: {fontStyle};
-      letter-spacing: {letterSpacing / 100}em;
-      text-transform: {textTransform};
-    ">
+                height: {height}px;
+                font-size: {fontSize}px; 
+                line-height: {lineHeight};
+                padding: {padding}px;
+                font-weight: {fontWeight};
+                font-family: '{fontFamily}', sans-serif;
+                font-style: {fontStyle};
+                letter-spacing: {letterSpacing / 100}em;
+                text-transform: {textTransform};
+      ">
         {chars.slice(0, Math.min(charCount, MAXCHARS))}
       </div>
 
@@ -193,7 +198,7 @@
             style="width: {width}px;
               height: {height}px;
               font-size: {fontSize}px; 
-              line-height: {lineHeight}px;
+              line-height: {lineHeight};
               padding: {padding}px;
               font-weight: {fontWeight};
               font-family: '{fontFamily}', sans-serif;
